@@ -42,7 +42,7 @@ namespace TicTacToe
             if (GameOver || IsBoardFull()) //TODO: Draw?
                 throw new GameOverException(Winner);
 
-            if (board[location.Row, location.Column] != null)
+            if (!IsEmpty(location))
                 return false;
             else
             {
@@ -80,6 +80,11 @@ namespace TicTacToe
                 Winner = winner;
                 GameOver = true;
             }
+            else if (IsBoardFull())
+            {
+                GameOver = true;
+            }
+
         }
 
         private void EvaluateDiagonals(ref PlayerToken? winner)
@@ -153,6 +158,37 @@ namespace TicTacToe
 
                 return isFull;
             }
+        }
+
+        public bool IsEmpty(Location location)
+        {
+            return board[location.Row, location.Column] == null;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            for (int r = 0; r < 3; r++)
+            {
+                sb.AppendLine(string.Join("|", 
+                    Str(board[r,0]),
+                    Str(board[r,1]),
+                    Str(board[r,2])
+                    ));
+            }
+
+            sb.AppendLine("Winner: " + Winner);
+
+            return sb.ToString();
+        }
+
+        private string Str(PlayerToken? str)
+        {
+            if (str == null)
+                return "-";
+            else
+                return str.ToString();
         }
     }
 }

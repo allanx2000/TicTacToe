@@ -74,6 +74,7 @@
     <Compile Include="Players\HumanPlayer.cs" />
     <Compile Include="Players\Player.cs" />
     <Compile Include="Players\PlayerType.cs" />
+    <Compile Include="Players\SimpleAI.cs" />
     <Compile Include="Players\TurnNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

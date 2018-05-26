@@ -25,10 +25,27 @@ namespace TicTacToe
         {
             InitializeComponent();
 
-            Test();
+            //TestPlayer();
+            TestAI();
         }
 
-        private void Test()
+        private void TestAI()
+        {
+            AIPlayer p1 = new SimpleAI(PlayerToken.O);
+            AIPlayer p2 = new SimpleAI(PlayerToken.X);
+
+            Game game = new Game(p1, p2);
+
+            //Should move player management out of Game? Then Game is not needed?
+
+            var first = p1.GetMove(game.GetBoard());
+
+            game.MakeMove(first);
+
+            txtOutput.Text = game.GetBoard().ToString();
+        }
+
+        private void TestPlayer()
         {
             Player p1 = new HumanPlayer(PlayerToken.O);
             Player p2 = new HumanPlayer(PlayerToken.X);
@@ -47,6 +64,11 @@ namespace TicTacToe
             
             //Game Over
             game.MakeMove(new Board.Location(1, 2));
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            TestAI();
         }
     }
 }
