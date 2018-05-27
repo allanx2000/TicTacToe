@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TicTacToe.Controls;
@@ -117,12 +118,31 @@ namespace TicTacToe.ViewModels
                 StatusText = "It's now " + state.TurnPlayer.Token + "'s turn.";
 
                 if (state.TurnPlayer is AIPlayer)
-                {   
-                    var b = game.GetBoard();
-                    var move = ((AIPlayer) state.TurnPlayer).GetMove(b);
-                    buttonGrid[move.Row, move.Column].Click();
+                {
+                    grid.IsEnabled = false;
+                    MakeCallAI((AIPlayer)state.TurnPlayer);
                 }
             }
+        }
+
+        private void MakeCallAI(AIPlayer ai)
+        {
+            Thread th = new Thread(() =>
+            {
+                var b = game.GetBoard();
+                var move = ai.GetMove(b);
+            
+                Thread.Sleep(1000);
+
+                App.Current.Dispatcher.Invoke(() =>
+                {
+                    buttonGrid[move.Row, move.Column].Click();
+                    grid.IsEnabled = true;
+                });
+            });
+
+            th.Start();
+    
         }
 
         public bool InGame { 
