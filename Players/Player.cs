@@ -27,6 +27,8 @@ namespace TicTacToe.Players
             }
         }
 
-
+        public virtual void Reset()
+        {
+        }
     }
 }

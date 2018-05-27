@@ -17,6 +17,13 @@ namespace TicTacToe.Players
         {
         }
 
+        public override void Reset()
+        {
+            base.Reset();
+
+            filled.Clear();
+        }
+
         public override Board.Location GetMove(Board board)
         {
             while (true)

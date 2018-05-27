@@ -4,6 +4,10 @@
         Title="MainWindow" Height="350" Width="525">
     <DockPanel LastChildFill="True">
         <Button DockPanel.Dock="Bottom" Click="Button_Click_1">New Game</Button>
-        <TextBox AcceptsReturn="True" Name="txtOutput"/>
+        
+        <Grid Name="GameGrid"/>
+        <!--
+            <TextBox AcceptsReturn="True" Name="txtOutput"/>
+        -->
     </DockPanel>
 </Window>

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TicTacToe.Players;
+using TicTacToe.ViewModels;
 
 namespace TicTacToe
 {
@@ -21,18 +22,19 @@ namespace TicTacToe
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private readonly MainWindowViewModel vm;
         
         public MainWindow(Player p1, Player p2)
         {
             InitializeComponent();
 
-            //this.p1 = p1;
-            //this.p2 = p2;
-        
+            vm = new MainWindowViewModel(this, p1, p2);
+            DataContext = vm;
+
 
             TestAI();
         }
-
         
         private void TestAI()
         {
@@ -46,8 +48,6 @@ namespace TicTacToe
             var first = p1.GetMove(game.GetBoard());
 
             game.MakeMove(first);
-
-            txtOutput.Text = game.GetBoard().ToString();
         }
 
         private void TestPlayer()

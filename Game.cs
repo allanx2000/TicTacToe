@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicTacToe.Players;
+using TicTacToe.ViewModels;
 
 namespace TicTacToe
 {
@@ -28,29 +29,43 @@ namespace TicTacToe
             board = new Board();
         }
 
-        public void MakeMove(Board.Location location)
+        public GameState MakeMove(Board.Location location)
         {
+            
             if (board.GameOver)
-                return;
+            {
+                return GetState();
+            }
 
             Player p = GetCurrentPlayer();
-
             bool placed = board.PlaceToken(location, p.Token);
 
             if (placed)
             {
-                if (board.GameOver)
-                {
-                    //MessageBoxFactory.ShowInfo("Winner: " + board.Winner, "Game Over");
-                    //TODO: Notify Winner
-                }
-                else
-                {
-                    Next();
-                }
+                Next();
             }
 
+            return GetState();
+
             
+        }
+
+        public GameState GetState()
+        {
+            GameState state = new GameState();
+
+            state.Finished = board.GameOver;
+            if (state.Finished)
+            {
+                state.Finished = true;
+                state.Winner = board.Winner;
+            }
+            else
+            {
+                state.TurnPlayer = GetCurrentPlayer();
+            }
+
+            return state;
         }
 
         private Player GetCurrentPlayer()
@@ -78,6 +93,19 @@ namespace TicTacToe
         internal Board GetBoard()
         {
             return board;
+        }
+
+        public PlayerToken? CurrentPlayerToken
+        {
+            get
+            {
+                if (board.GameOver)
+                    return null;
+                else
+                {
+                    return GetCurrentPlayer().Token;
+                }
+            }
         }
     }
 }
