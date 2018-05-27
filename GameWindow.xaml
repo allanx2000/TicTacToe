@@ -3,11 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <DockPanel LastChildFill="True">
+
+        <Label DockPanel.Dock="Top" FontSize="15" Content="{Binding StatusText, FallbackValue=StatusText}" HorizontalAlignment="Center"/>
         <Button DockPanel.Dock="Bottom" Command="{Binding NewGameCommand}">New Game</Button>
         
-        <Grid Name="GameGrid"/>
-        <!--
-            <TextBox AcceptsReturn="True" Name="txtOutput"/>
-        -->
+        <Grid Name="GameGrid"/>        
     </DockPanel>
 </Window>

@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TicTacToe.Controls;
+using TicTacToe.Players;
 
 namespace TicTacToe.ViewModels
 {
@@ -93,25 +94,9 @@ namespace TicTacToe.ViewModels
             return true;
         }
 
-        /*
-        private GridButton GetButton(int r, int c)
-        {
-            if (r < 0 || r >= board.Height)
-                return null;
-            else if (c < 0 || c >= board.Width)
-                return null;
-            else
-                return buttonGrid[r, c];
-        }
-
-        public int CellsLeft { get; private set; }
-
-        private int minesLeft;
-        */
-        
         private bool inGame;
         private string statusText;
-        
+
         private void UpdateGameState(GameState state)
         {
             InGame = !state.Finished;
@@ -130,6 +115,13 @@ namespace TicTacToe.ViewModels
             else
             {
                 StatusText = "It's now " + state.TurnPlayer.Token + "'s turn.";
+
+                if (state.TurnPlayer is AIPlayer)
+                {   
+                    var b = game.GetBoard();
+                    var move = ((AIPlayer) state.TurnPlayer).GetMove(b);
+                    buttonGrid[move.Row, move.Column].Click();
+                }
             }
         }
 

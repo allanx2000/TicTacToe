@@ -31,7 +31,6 @@ namespace TicTacToe
 
         public GameState MakeMove(Board.Location location)
         {
-            
             if (board.GameOver)
             {
                 return GetState();
@@ -40,14 +39,12 @@ namespace TicTacToe
             Player p = GetCurrentPlayer();
             bool placed = board.PlaceToken(location, p.Token);
 
-            if (placed)
+            if (placed) //Change player
             {
-                Next();
+                currentTurn = currentTurn == 0 ? 1 : 0;
             }
 
             return GetState();
-
-            
         }
 
         public GameState GetState()
@@ -71,23 +68,6 @@ namespace TicTacToe
         private Player GetCurrentPlayer()
         {
             return currentTurn == 0 ? player1 : player2;
-        }
-
-
-        //TODO: Board shouldnt care about AI, Handled by Game/GUI
-        private void Next()
-        {
-            currentTurn = currentTurn == 0 ? 1 : 0;
-
-            Player p = GetCurrentPlayer();
-            if (p is AIPlayer)
-            {
-                if (board.GameOver)
-                    return;
-
-                var move = ((AIPlayer)p).GetMove(board);
-                MakeMove(move);
-            }
         }
 
         internal Board GetBoard()

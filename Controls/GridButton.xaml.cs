@@ -31,7 +31,7 @@ namespace TicTacToe.Controls
         private static SolidColorBrush GRAY = new SolidColorBrush(Colors.Gray);
         private static SolidColorBrush BLUE = new SolidColorBrush(Colors.Blue);
         private static SolidColorBrush RED = new SolidColorBrush(Colors.Red);
-        
+
         private ButtonInfo info;
 
         public void InitializeButton(ButtonInfo info)
@@ -152,16 +152,14 @@ namespace TicTacToe.Controls
         {
             if (token == null)
                 token = getCurrentToken.Invoke();
-            else
+
+            bool clicked = onClick.Invoke(info.Row, info.Column, token.Value);
+
+            if (clicked)
             {
-                bool handled = onClick.Invoke(info.Row, info.Column, token.Value);
-            
-                if (handled)
-                {
-                    SetColor(token);
-            
-                    Clicked = true;
-                }
+                SetColor(token);
+
+                Clicked = true;
             }
         }
     }

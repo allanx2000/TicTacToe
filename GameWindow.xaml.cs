@@ -35,7 +35,7 @@ namespace TicTacToe
             vm.NewGame();
             
         }
-        
+        /*
         private void TestAI()
         {
             AIPlayer p1 = new SimpleAI(PlayerToken.O);
@@ -75,5 +75,6 @@ namespace TicTacToe
         {
             TestAI();
         }
+         */ 
     }
 }
