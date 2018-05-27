@@ -32,8 +32,8 @@ namespace TicTacToe
             vm = new MainWindowViewModel(this, p1, p2);
             DataContext = vm;
 
-
-            TestAI();
+            vm.NewGame();
+            
         }
         
         private void TestAI()

@@ -4,17 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
+             Name="Control"
              d:DesignHeight="300" d:DesignWidth="300">
-    <ToggleButton Margin="0" Padding="0"  Name="Button" 
-                  DataContext="{Binding ElementName=Control}" 
-                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                  IsChecked="{Binding Clicked}" 
-                  PreviewMouseLeftButtonDown="OnLeftClick"> 
-        <Label Margin="0" Padding="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Viewbox>
-                <TextBlock Foreground="{Binding TextColor, FallbackValue=Pink}" Text="{Binding ButtonText, FallbackValue='-'}"/>
+
+    <UserControl.Resources>
+        <Style x:Key="MyFocusVisual">
+        </Style>
+    </UserControl.Resources>
+
+    <Border Margin="0" Name="Button"
+            DataContext="{Binding ElementName=Control}"
+            CornerRadius="3" BorderThickness="2" BorderBrush="LightGray"
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+            MouseDown="OnLeftClick">
+        <Label Margin="0" Padding="0" 
+               HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch"
+               HorizontalAlignment="Stretch" VerticalContentAlignment="Stretch" >
+            <Viewbox HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TextBlock Foreground="{Binding TextColor, FallbackValue=Pink}" 
+                           Text="{Binding ButtonText, FallbackValue='-'}"/>
             </Viewbox>
 
         </Label>
-    </ToggleButton>
+    </Border>
 </UserControl>

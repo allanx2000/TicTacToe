@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Innouvous.Utils.MVVM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Controls;
+using System.Windows.Input;
 using TicTacToe.Controls;
 
 namespace TicTacToe.ViewModels
@@ -26,7 +28,12 @@ namespace TicTacToe.ViewModels
             this.p2 = p2;
         }
 
-        private void CreateNewGame()
+        public ICommand NewGameCommand
+        {
+            get { return new CommandHelper(NewGame); }
+        }
+
+        public void NewGame()
         {
             p1.Reset();
             p2.Reset();
@@ -75,13 +82,15 @@ namespace TicTacToe.ViewModels
             UpdateGameState(game.GetState());
         }
 
-        private void OnClick(int r, int c, Players.PlayerToken token)
+        private bool OnClick(int r, int c, Players.PlayerToken token)
         {
             if (!InGame)
-                return;
+                return false;
 
             GameState state = game.MakeMove(new Board.Location(r, c));
             UpdateGameState(state);
+
+            return true;
         }
 
         /*
@@ -105,7 +114,7 @@ namespace TicTacToe.ViewModels
         
         private void UpdateGameState(GameState state)
         {
-            InGame = state.Finished;
+            InGame = !state.Finished;
 
             if (state.Finished) //Finished
             {

@@ -41,11 +41,11 @@ namespace TicTacToe.Controls
 
         #region Game Actions Handlers
 
-        private static Action<int, int, PlayerToken> onClick;
+        private static Func<int, int, PlayerToken, bool> onClick;
         private static Func<PlayerToken?> getCurrentToken;
 
         //onFlag: r,c, isFlagged
-        public static void SetHandlers(Action<int, int, PlayerToken> onClick, Func<PlayerToken?> getCurrentToken)
+        public static void SetHandlers(Func<int, int, PlayerToken, bool> onClick, Func<PlayerToken?> getCurrentToken)
         {
             GridButton.onClick = onClick;
             GridButton.getCurrentToken = getCurrentToken;
@@ -123,7 +123,7 @@ namespace TicTacToe.Controls
 
         private string ToString(PlayerToken? token)
         {
-            return token == null ? null : token.ToString();
+            return token == null ? "" : token.ToString();
         }
 
         //Click
@@ -154,12 +154,14 @@ namespace TicTacToe.Controls
                 token = getCurrentToken.Invoke();
             else
             {
-                SetColor(token);
+                bool handled = onClick.Invoke(info.Row, info.Column, token.Value);
             
-                Clicked = true;
-
-                if (onClick != null)
-                    onClick.Invoke(info.Row, info.Column, token.Value);
+                if (handled)
+                {
+                    SetColor(token);
+            
+                    Clicked = true;
+                }
             }
         }
     }
