@@ -119,7 +119,6 @@ namespace TicTacToe.ViewModels
 
                 if (state.TurnPlayer is AIPlayer)
                 {
-                    grid.IsEnabled = false;
                     MakeCallAI((AIPlayer)state.TurnPlayer);
                 }
             }
@@ -127,6 +126,8 @@ namespace TicTacToe.ViewModels
 
         private void MakeCallAI(AIPlayer ai)
         {
+            WaitingAI = true;
+
             Thread th = new Thread(() =>
             {
                 var b = game.GetBoard();
@@ -137,7 +138,7 @@ namespace TicTacToe.ViewModels
                 App.Current.Dispatcher.Invoke(() =>
                 {
                     buttonGrid[move.Row, move.Column].Click();
-                    grid.IsEnabled = true;
+                    WaitingAI = false;
                 });
             });
 
@@ -160,6 +161,23 @@ namespace TicTacToe.ViewModels
             {
                 statusText = value;
                 RaisePropertyChanged("StatusText");
+            }
+        }
+
+        private bool waitingAI = false;
+
+        public bool UIEnabled
+        {
+            get { return !waitingAI; }
+        }
+
+        public bool WaitingAI { 
+            get { return waitingAI; }
+            set
+            {
+                waitingAI = value;
+                RaisePropertyChanged("WaitingAI");
+                RaisePropertyChanged("UIEnabled");
             }
         }
     }

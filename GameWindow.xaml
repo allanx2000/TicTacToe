@@ -5,8 +5,8 @@
     <DockPanel LastChildFill="True">
 
         <Label DockPanel.Dock="Top" FontSize="15" Content="{Binding StatusText, FallbackValue=StatusText}" HorizontalAlignment="Center"/>
-        <Button DockPanel.Dock="Bottom" Command="{Binding NewGameCommand}">New Game</Button>
-        
-        <Grid Name="GameGrid"/>        
+        <Button IsEnabled="{Binding UIEnabled}" DockPanel.Dock="Bottom" Command="{Binding NewGameCommand}">New Game</Button>
+
+        <Grid IsEnabled="{Binding UIEnabled}" Name="GameGrid"/>        
     </DockPanel>
 </Window>
