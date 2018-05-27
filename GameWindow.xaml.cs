@@ -21,14 +21,19 @@ namespace TicTacToe
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        
+        public MainWindow(Player p1, Player p2)
         {
             InitializeComponent();
 
-            //TestPlayer();
+            //this.p1 = p1;
+            //this.p2 = p2;
+        
+
             TestAI();
         }
 
+        
         private void TestAI()
         {
             AIPlayer p1 = new SimpleAI(PlayerToken.O);

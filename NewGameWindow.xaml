@@ -1,0 +1,34 @@
+﻿<Window x:Class="TicTacToe.NewGameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="New Game" Width="300
+"       SizeToContent="Height"
+        >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <Label Grid.Row="0" Grid.Column="0">Player O:</Label>
+        <ComboBox Grid.Row="0" Grid.Column="1" 
+                  DisplayMemberPath="Name"
+                  ItemsSource="{Binding Players}"
+                  SelectedItem="{Binding Player1}"/>
+
+        <Label Grid.Row="1" Grid.Column="0">Player X:</Label>
+        <ComboBox Grid.Row="1" Grid.Column="1" 
+                  DisplayMemberPath="Name"
+                  ItemsSource="{Binding Players}"
+                  SelectedItem="{Binding Player2}"/>
+
+        <Button Grid.Row="2" Grid.ColumnSpan="2" 
+             Command="{Binding StartCommand}">Create Game</Button>
+    </Grid>
+</Window>

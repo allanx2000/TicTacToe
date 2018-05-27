@@ -53,7 +53,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Compile Include="ViewModels\NewGameWindowViewModel.cs" />
+    <Page Include="GameWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -64,12 +65,19 @@
     <Compile Include="Board.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameOverException.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="GameWindow.xaml.cs">
+      <DependentUpon>GameWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NewGameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NewGameWindow.xaml.cs">
+      <DependentUpon>NewGameWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Players\AIPlayer.cs" />
     <Compile Include="Players\HumanPlayer.cs" />
     <Compile Include="Players\Player.cs" />
@@ -107,7 +115,12 @@
       <Project>{6bddd1f2-3bc0-431d-923d-ce76681a3851}</Project>
       <Name>Innouvous.Utils.MessageBoxFactory</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Innouvous.Utils\Innouvous.Utils.MVVM\Innouvous.Utils.MVVM.csproj">
+      <Project>{b90d1bd6-db68-416c-9150-ba4e3c73a3f2}</Project>
+      <Name>Innouvous.Utils.MVVM</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
